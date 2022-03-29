@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{question}}</h1>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choices.all %}
+        <p>
+            <label for="id_authors_1"><input type="radio" name="choice" value="{{choice.id}}">{{ choice }} votes: {{choice.votes}}</label>
+        </p>
+        {% empty %}
+        <p>No choices for this question, please contact Admin</p>
+        {% endfor %}
+        <input type="submit" value="Vote">
+    </form>
+{% endblock %}
